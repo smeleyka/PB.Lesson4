@@ -9,5 +9,5 @@ public interface MainView
     void showAvatar(String avatarUrl);
     void showError(String message);
     void setUsername(String username);
-    void setRepoUrl(String repoUrl);
+    void setRepos(String repos);
 }

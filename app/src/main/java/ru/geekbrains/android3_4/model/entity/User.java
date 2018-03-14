@@ -1,40 +1,61 @@
 package ru.geekbrains.android3_4.model.entity;
 
+import java.util.List;
+
 /**
  * Created by stanislav on 3/12/2018.
  */
 
-public class User
-{
-    String avatarUrl;
-    String login;
-    String reposUrl;
+public class User {
+    private String avatarUrl;
+    private String login;
+    private List<Repos> repos;
 
-    public String getAvatarUrl()
-    {
+    public String getAvatarUrl() {
         return avatarUrl;
     }
 
-    public void setAvatarUrl(String avatarUrl)
-    {
+    public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
     }
 
-    public String getLogin()
-    {
+    public String getLogin() {
         return login;
     }
 
-    public void setLogin(String login)
-    {
+    public void setLogin(String login) {
         this.login = login;
     }
 
-    public String getReposUrl() {
-        return reposUrl;
+    public List<Repos> getRepos() {
+        return repos;
     }
 
-    public void setReposUrl(String reposUrl) {
-        this.reposUrl = reposUrl;
+    public void setRepos(List<Repos> repos) {
+        this.repos = repos;
     }
+
+
+    public class Repos {
+        private int id;
+        private String name;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+    }
+
 }

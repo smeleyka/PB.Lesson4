@@ -1,10 +1,8 @@
 package ru.geekbrains.android3_4.presenter;
 
-import android.util.Log;
-
+import io.reactivex.Observable;
 import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.internal.operators.observable.ObservableAll;
+import io.reactivex.schedulers.Schedulers;
 import ru.geekbrains.android3_4.model.api.UserRepo;
 import ru.geekbrains.android3_4.view.MainView;
 
@@ -28,15 +26,32 @@ public class MainPresenter
 
     public void loadInfo()
     {
-        userRepo.getUser("smeleyka")
+//        userRepo.getUser("smeleyka")
+//                .observeOn(scheduler)
+//                .subscribe(user -> {
+//                    view.showAvatar(user.getAvatarUrl());
+//                    view.setUsername(user.getLogin());
+//                    view.setRepoUrl(user.getReposUrl());
+//                }, throwable -> {
+//                    Log.e(TAG, "Failed to get user", throwable);
+//                    view.showError(throwable.getMessage());
+//                });
+
+        Observable.zip(userRepo.getUser("smeleyka"),
+                userRepo.getUserRepos("smeleyka"), (user, repos) -> {
+                    user.setRepos(repos);
+                    return user;
+                })
+                .subscribeOn(Schedulers.computation())
                 .observeOn(scheduler)
                 .subscribe(user -> {
-                    view.showAvatar(user.getAvatarUrl());
                     view.setUsername(user.getLogin());
-                    view.setRepoUrl(user.getReposUrl());
+                    view.showAvatar(user.getAvatarUrl());
+                    user.getRepos().forEach(repos -> view.setRepos(repos.getName()));
                 }, throwable -> {
-                    Log.e(TAG, "Failed to get user", throwable);
                     view.showError(throwable.getMessage());
                 });
+
+
     }
 }

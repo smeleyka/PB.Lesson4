@@ -1,5 +1,7 @@
 package ru.geekbrains.android3_4.model.api;
 
+import java.util.List;
+
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -15,5 +17,5 @@ public interface ApiService
     Observable<User> getUser(@Path("user") String userName);
 
     @GET("users/{user}/repos")
-    Observable<User> getUserRepos(@Path("user") String userName);
+    Observable<List<User.Repos>> getUserRepos(@Path("user") String userName);
 }

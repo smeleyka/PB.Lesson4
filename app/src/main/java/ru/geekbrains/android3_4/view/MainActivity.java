@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements MainView
     @BindView(R.id.iv_avatar) ImageView avatarImageView;
     @BindView(R.id.tv_error) TextView errorTextView;
     @BindView(R.id.tv_username) TextView usernameTextView;
-    @BindView(R.id.tv_repo_url) TextView repoUrlTextView;
+    @BindView(R.id.tv_repos)    TextView reposTextView;
     @BindView(R.id.pb_loading) ProgressBar loadingProgressBar;
 
     MainPresenter presenter;
@@ -46,21 +47,21 @@ public class MainActivity extends AppCompatActivity implements MainView
         presenter.loadInfo();
     }
 
-//    private void getDataWithOkHttp()
-//    {
-//        Single.fromCallable(() -> {
-//
-//            OkHttpClient client = new OkHttpClient();
-//            Request request = new Request.Builder()
-//                    .url("https://api.github.com/users/smeleyka")
-//                    .build();
-//
-//            return client.newCall(request).execute().body().string();
-//
-//        }).subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(s -> Log.d(TAG, s), throwable -> Log.d(TAG, "error", throwable));
-//    }
+    private void getDataWithOkHttp()
+    {
+        Single.fromCallable(() -> {
+
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder()
+                    .url("https://api.github.com/users/smeleyka")
+                    .build();
+
+            return client.newCall(request).execute().body().string();
+
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(s -> Log.d(TAG, s), throwable -> Log.d(TAG, "error", throwable));
+    }
 
     @Override
     public void showAvatar(String avatarUrl)
@@ -84,8 +85,9 @@ public class MainActivity extends AppCompatActivity implements MainView
         usernameTextView.setText(username);
     }
 
-    public void setRepoUrl(String repoUrl)
+    @Override
+    public void setRepos(String repo)
     {
-        repoUrlTextView.setText(repoUrl);
+        reposTextView.append(repo+"\n");
     }
 }

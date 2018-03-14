@@ -1,5 +1,7 @@
 package ru.geekbrains.android3_4.model.api;
 
+import java.util.List;
+
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 import ru.geekbrains.android3_4.model.entity.User;
@@ -15,7 +17,7 @@ public class UserRepo extends Repo
         return getApi().getUser(username).subscribeOn(Schedulers.io());
     }
 
-    public Observable<User> getUserRepos(String username)
+    public Observable <List<User.Repos>> getUserRepos(String username)
     {
         return getApi().getUserRepos(username).subscribeOn(Schedulers.io());
     }

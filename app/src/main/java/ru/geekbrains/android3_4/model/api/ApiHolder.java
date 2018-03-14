@@ -15,7 +15,7 @@ public class ApiHolder
 {
     private static ApiHolder instance = new ApiHolder();
 
-    public static ApiHolder getInstance()
+    public static synchronized ApiHolder getInstance()
     {
         if (instance == null)
         {
@@ -24,7 +24,7 @@ public class ApiHolder
         return instance;
     }
 
-    ApiService api;
+    private ApiService api;
 
     private ApiHolder()
     {
